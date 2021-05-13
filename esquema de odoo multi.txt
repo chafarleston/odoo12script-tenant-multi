@@ -1,0 +1,66 @@
+Crear el direccionamiento DNS en host
+
+
+Crear el cliente en el servidor
+        Conectar al servidor via SSH
+        
+*********************** Crear con APACHE un nuevo cliente *****************************
+Agregar nueva BD
+cd /etc/apache2/sites-available/
+
+
+Crear archivo config para nuevo cliente
+sudo nano cliente_nuevo.midominio.com.conf
+sudo nano queenburguer1.realcomputerpos.club.conf
+Cambiar "cliente" por el nombre de la base de datos
+Guardar cambios y salir
+Ctrl x, después "Y"
+
+
+**pegar siguientes datos del VIRTUALHOST y modificar cliente
+
+
+<VirtualHost *:80>
+        ServerName gabana.realcomputerpos.club
+        ServerAlias gabana.realcomputerpos.club
+
+
+        ProxyPass  / http://localhost:8069/
+        ProxyPassReverse  / http://localhost:8069/
+
+
+        Header add X-ODOO_DBFILTER "gabana"
+        RequestHeader add X-ODOO_DBFILTER "gabana"
+
+
+        #RewriteEngine on
+        #RewriteCond %{SERVER_NAME} =gabana.realcomputerpos.club
+       # RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+
+**GUARDAR Y CERRAR
+
+
+Habilitar sitio web en apache2
+sudo a2ensite gabana.realcomputerpos.club.conf
+
+
+Luego reiniciar apache2
+sudo service apache2 reload
+
+
+Para deshabilitar un sitio web en apache2
+sudo a2dissite cliente.midominio.com.conf
+
+
+Luego reiniciar apache2
+sudo service apache2 reload
+
+
+** SALIR de la terminal de ubuntu
+exit y ENTER
+
+
+Ingresar a la base de datos del cliente y crear o restaurar de la plantilla
+Ir al navegador e ingresar al link: cliente.midominio.com

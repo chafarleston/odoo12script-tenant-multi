@@ -1,0 +1,53 @@
+﻿ODOO 12 LOCAL HOST o VPS (Desarrollo o Producción) Update 07-09-2020
+Crear nueva instancia en upcloud
+Crear el servidor
+
+
+Conectar por SSH
+ssh root@IP_Server
+
+
+Cambiar password del usuario rooot
+passwd
+nuevo_password
+
+
+Crear usuario
+adduser nuevo_usuario
+password: nuevo_password
+
+
+Enter the new value, or press ENTER for the default
+        Full Name []: nombre
+        Room Number []: 
+        Work Phone []: telefono
+        Home Phone []: 
+        Other []: 
+Is the information correct? [Y/n] Y
+
+
+usermod -aG sudo nuevo_usuario
+exit
+
+
+Loguearse nuevamente
+ssh nuevo_usuario@IP_delservidor
+
+
+Limitar acceso de root por ssh
+sudo nano /etc/ssh/sshd_config
+Cambiar la línea
+PermitRootLogin no
+Guardar y salir
+
+
+Reiniciar servicio
+sudo /etc/init.d/ssh restart
+
+
+Cambiar la zona horaria
+sudo timedatectl set-timezone America/Costa_Rica
+
+
+Actualizar server
+sudo apt-get update && sudo apt-get upgrade -y
