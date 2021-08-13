@@ -1,0 +1,28 @@
+parar y restablecer servicio odoo
+sudo service odoo12 start
+sudo service odoo12 stop
+
+actualizar modulos de manera automatica
+python3 /opt/odoo12/odoo/odoo-bin -u all --config /opt/odoo12/config/odoo12.conf -d gabbana
+
+reestablecer base de datos 
+primero te ubicas donde esta la base de datos
+entrar como usuario root
+sudo -i -u postgres psql
+ 
+eliminanos bases de datos anteriores
+drop database gabbana;
+
+y creas la base de datos
+CREATE DATABASE gabbana WITH OWNER root;
+
+psql -U postgres gabanna < gabbana.sql
+
+\q sales al terminal y 	\l listas la bases de datos
+
+y con este comando restableces la base de datos
+psql -U postgres gabanna < gabbana.sql
+psql -U root gabanna < gabbana.sql
+
+ver el log de odoo
+tail -f /opt/odoo12/log/odoo12.log
